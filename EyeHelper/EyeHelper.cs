@@ -9,7 +9,7 @@ namespace EyeHelper
         {
             base.SetupPauseMenu(pauseMenu);
 
-            if (LoadManager.GetCurrentScene() == OWScene.EyeOfTheUniverse)
+            if (LoadManager.GetCurrentScene() != OWScene.SolarSystem)
             {
                 var solarSystemButton = pauseMenu.MakeSimpleButton("RETURN TO OUTER WILDS", 3, true);
                 solarSystemButton.OnSubmitAction += () =>
@@ -19,7 +19,7 @@ namespace EyeHelper
                     LoadManager.LoadScene(OWScene.SolarSystem, LoadManager.FadeType.ToBlack, 0.5f);
                 };
             }
-            if (LoadManager.GetCurrentScene() == OWScene.SolarSystem)
+            if (LoadManager.GetCurrentScene() != OWScene.EyeOfTheUniverse)
             {
                 var solarSystemButton = pauseMenu.MakeSimpleButton("GO TO THE EYE", 3, true);
                 solarSystemButton.OnSubmitAction += () =>
@@ -27,6 +27,15 @@ namespace EyeHelper
                     Locator.GetSceneMenuManager().pauseMenu.OnSkipToNextTimeLoop();
                     PlayerData._currentGameSave.warpedToTheEye = true;
                     LoadManager.LoadScene(OWScene.EyeOfTheUniverse, LoadManager.FadeType.ToBlack, 0.5f);
+                };
+            }
+            if (LoadManager.GetCurrentScene() != OWScene.PostCreditsScene) {
+                var solarSystemButton = pauseMenu.MakeSimpleButton("GO TO NEW UNIVERSE", 3, true);
+                solarSystemButton.OnSubmitAction += () =>
+                {
+                    Locator.GetSceneMenuManager().pauseMenu.OnSkipToNextTimeLoop();
+                    PlayerData._currentGameSave.warpedToTheEye = true;
+                    LoadManager.LoadScene(OWScene.PostCreditsScene, LoadManager.FadeType.ToBlack, 0.5f);
                 };
             }
         }
